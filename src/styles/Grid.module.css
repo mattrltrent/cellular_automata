@@ -1,0 +1,19 @@
+/* Grid.module.css */
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(100, 1fr); /* 100 columns */
+  grid-template-rows: repeat(100, 1fr); /* 100 rows */
+}
+
+.gridCell {
+  aspect-ratio: 1; /* Keep the cells square */
+  background-color: red; /* Default background color */
+}
+
+.alive {
+  background-color: #eeeeee; /* Alive cell color */
+}
+
+.dead {
+  background-color: #333333; /* Dead cell color */
+}

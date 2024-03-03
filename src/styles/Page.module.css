@@ -1,0 +1,14 @@
+/* Page.module.css */
+.page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Adjust based on your needs */
+    /* text align center */
+    text-align: center;
+    /* align center */
+    align-items: center;
+  }
+  
+.page > :nth-child(2) {
+    flex-grow: 1; /* Make second child take up remaining space on the right */
+}
