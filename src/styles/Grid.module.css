@@ -5,15 +5,26 @@
   flex-direction: column;
   justify-content: center; /* Center vertically */
   align-items: center; /* Center horizontally */
+  padding: 20px;
+  /* child is centered vertically and horizontally */
+  display: flex;
+  /* 100% width */
+  width: 100%;
+  /* 100% height */
+  height: 100vh;
+  /* border inside */
+  box-sizing: border-box;
 }
-
 
 .gridContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, 25px);
   justify-content: center;
   /* Removed the transform and height to allow flexbox centering */
-  
+}
+
+.gridContainer:hover {
+  cursor: crosshair;
 }
 
 .gridRow {
@@ -53,9 +64,69 @@
   align-items: center;
   /* space between each item */
   gap: 10px;
+  /* center horizontally when smaller than screen size */
+  margin: 0 auto;
+  /* all buttons in row same height */
+  align-items: center;
+  /* make it wrap if too small */
+  flex-wrap: wrap;
+  /* make this transparent hit target  so hits go right through it*/
+  pointer-events: none;
+}
+
+.buttonsDown {
+  /* absoulte position top center */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: inline-block;
+  text-align: center;
+  z-index: 2;
+  padding: 15px;
+  /* a row of children, all centered */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* space between each item */
+  gap: 10px;
+  /* center horizontally when smaller than screen size */
+  /* all buttons in row same height */
+  align-items: center;
+  /* make it wrap if too small */
+  flex-wrap: wrap;
+  /* make this transparent hit target  so hits go right through it*/
+  pointer-events: none;
 }
 
 .button {
   /* shadow */
-  box-shadow: 0 0 20px 0 #2d2d2d;
+  box-shadow: 0 0 20px 0 #1f1f1f;
+  pointer-events: auto;
+  /* make text not highlightable */
+  user-select: none;
+}
+
+.loading {
+  /* center child */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.start {
+  color: #00ff00;
+}
+
+.start:hover {
+  color: #00dd00;
+}
+
+.stop {
+  color: #ff3737;
+}
+
+.stop:hover {
+  color: #ff3737;
 }
