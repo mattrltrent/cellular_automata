@@ -17,19 +17,32 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-    /* no overscroll x and y */
+  color: #eeeeee;
     overscroll-behavior: none;
+    background-color: #171717;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+button {
+  background-color: #414141;
+  color: #eeeeee;
+  border: 1px solid #484848;
+  padding: 5px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+button:hover {
+  background-color: #484848;
+  color: #ffffff;
+}
+
+button:active {
+  background-color: #373737;
 }

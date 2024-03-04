@@ -46,7 +46,7 @@ export const gridSlice = createSlice({
       },
       populateGridRandomly: (state) => { 
         state.data = state.data.map((row) => 
-          row.map(() => ({ isAlive: Math.random() > 0.8 }))
+          row.map(() => ({ isAlive: Math.random() > 0.85 }))
         );
       },
     tick: (state) => {
@@ -64,6 +64,6 @@ export const gridSlice = createSlice({
   },
 });
 
-export const { initGrid, updateCellState, tick } = gridSlice.actions;
+export const { initGrid, updateCellState, tick, populateGridRandomly } = gridSlice.actions;
 
 export default gridSlice.reducer;

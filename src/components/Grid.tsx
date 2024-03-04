@@ -1,85 +1,92 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { initGrid, updateCellState } from "../redux/grid_slice";
-import { RootState } from "../redux/store";
+import {
+  initGrid,
+  updateCellState,
+  tick,
+  GridState,
+  populateGridRandomly,
+} from "@/redux/grid_slice";
 import styles from "../styles/Grid.module.css";
+
+// Assuming RootState has a property `grid` for accessing the grid state
+interface RootState {
+  grid: GridState;
+}
 
 const GridComponent = () => {
   const dispatch = useDispatch();
   const grid = useSelector((state: RootState) => state.grid.data);
-
-  // Constants for rows and columns
-  const rows = 100; 
-  const columns = 100;
-
-  // State for the container size
-  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+  const [intervalId, setIntervalId] = React.useState<NodeJS.Timeout | null>(
+    null
+  );
 
   useEffect(() => {
+    // Calculate the number of rows and columns based on the viewport size
+    const cellSize = 25; // Fixed cell size in pixels
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const columns = Math.floor(viewportWidth / cellSize);
+    const rows = Math.floor(viewportHeight / cellSize);
+
     dispatch(initGrid({ rows, columns }));
-
-    const calculateContainerSize = () => {
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-
-      // Calculate the maximum size the grid container can take
-      const maxSize = Math.min(viewportWidth, viewportHeight);
-
-      setContainerSize({ width: maxSize, height: maxSize });
-    };
-
-    calculateContainerSize();
-
-    // Recalculate when window resizes
-    window.addEventListener("resize", calculateContainerSize);
-
-    return () => window.removeEventListener("resize", calculateContainerSize);
   }, [dispatch]);
 
   const handleCellClick = (rowIndex: number, columnIndex: number) => {
     dispatch(updateCellState({ rowIndex, columnIndex }));
   };
 
-  let timeoutId: NodeJS.Timeout | null = null;
-
-  // call tick until stopped via another call
-  function tick() {
-    dispatch({ type: "grid/tick" });
-    timeoutId = setTimeout(tick, 0.001);
-  }
-
-  function cancelTick() { 
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-      timeoutId = null;
+  const startSimulation = () => {
+    if (!intervalId) {
+      const id = setInterval(() => {
+        dispatch(tick());
+      }, 250);
+      dispatch(tick());
+      setIntervalId(id);
     }
-  }
+  };
+
+  const stopSimulation = () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+      setIntervalId(null);
+    }
+  };
+
+  const randomize = () => {
+    stopSimulation();
+    dispatch(populateGridRandomly());
+  };
 
   return (
-    <>
-      <button onClick={() => dispatch({ type: "grid/populateGridRandomly" })}>Random</button>
-      <button onClick={() => tick()}>Tick</button>
-      <button onClick={() => cancelTick()}>Stop</button>
-      <div 
-        className={styles.gridContainer} 
-        style={{
-          width: `${containerSize.width}px`, 
-          height: `${containerSize.height}px`,
-        }}
-      >
+    <div className={styles.wrapper}>
+      <div className={styles.buttons}>
+        <button className={styles.button} onClick={() => randomize()}>
+          shuffle
+        </button>
+        <button className={styles.button} onClick={startSimulation}>
+          start
+        </button>
+        <button className={styles.button} onClick={stopSimulation}>
+          stop
+        </button>
+      </div>
+      <div className={styles.gridContainer}>
         {grid.map((row, rowIndex) => (
           <div key={rowIndex} className={styles.gridRow}>
             {row.map((cell, columnIndex) => (
               <div
-                key={columnIndex}
-                className={`${styles.gridCell} ${cell.isAlive ? styles.alive : styles.dead}`}
+                key={`${rowIndex}-${columnIndex}`}
+                className={`${styles.gridCell} ${
+                  cell.isAlive ? styles.alive : styles.dead
+                }`}
                 onClick={() => handleCellClick(rowIndex, columnIndex)}
               ></div>
             ))}
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

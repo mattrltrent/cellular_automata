@@ -7,6 +7,7 @@
     text-align: center;
     /* align center */
     align-items: center;
+    width: 100%;
   }
   
 .page > :nth-child(2) {
