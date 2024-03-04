@@ -14,11 +14,6 @@ interface PageProps {
 export default function Page({ params, searchParams }: PageProps) {
   return (
     <Provider store={store}>
-      <Head>
-        <title>Conway's Game of Life</title> 
-        <meta name="description" content="Explore Conway's Game of Life, a cellular automaton devised by mathematician John Conway." /> {/* Description for SEO and sharing */}
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Grid />
     </Provider>
   );

@@ -13,7 +13,6 @@ import {
 import styles from "../styles/Grid.module.css";
 import Head from "next/head";
 
-// Assuming RootState has a property `grid` for accessing the grid state
 interface RootState {
   grid: GridState;
 }
@@ -23,16 +22,15 @@ const GridComponent = () => {
   const grid = useSelector((state: RootState) => state.grid.data);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
   const [loadingGrid, setLoadingGrid] = useState(true);
-  const [isDragging, setIsDragging] = useState(false); // Track whether the mouse is being dragged
-  const [isSimulating, setIsSimulating] = useState(false); // Track whether the simulation is running
-  // State to store fixed dimensions
+  const [isDragging, setIsDragging] = useState(false); 
+  const [isSimulating, setIsSimulating] = useState(false); 
   const [containerStyle, setContainerStyle] = useState({
     width: "0px",
     height: "0px",
   });
 
   useEffect(() => {
-    const cellSize = 25; // Fixed cell size in pixels
+    const cellSize = 25;
     initializeGrid(cellSize);
   }, [dispatch]);
 
@@ -42,7 +40,6 @@ const GridComponent = () => {
     const columns = Math.floor(viewportWidth / cellSize);
     const rows = Math.floor(viewportHeight / cellSize);
 
-    // Set the fixed dimensions for the grid container
     setContainerStyle({
       width: `${columns * cellSize}px`,
       height: `${rows * cellSize}px`,
@@ -89,9 +86,8 @@ const GridComponent = () => {
   };
 
   const handleMouseDown = (rowIndex: number, columnIndex: number) => {
-    setIsDragging(true); // Start dragging
+    setIsDragging(true);
     handleCellToggle(rowIndex, columnIndex);
-    // todo: start listener if one doesn't exist for mouse up to say dragging false aka handleMouseUp
     document.addEventListener("mouseup", handleMouseUp);
   };
 
@@ -102,7 +98,7 @@ const GridComponent = () => {
   };
 
   const handleMouseUp = () => {
-    setIsDragging(false); // Stop dragging
+    setIsDragging(false); 
   };
 
   const handleCellToggle = (rowIndex: number, columnIndex: number) => {
@@ -111,13 +107,6 @@ const GridComponent = () => {
 
   return (
     <>
-      <Head>
-        <title>Conway&apos;s Game of Life</title>
-        <meta name="description" content="Conway's Game of Life" />
-        <link rel="icon" href="/favicon.ico" />
-        {/* icon link */}
-      </Head>
-
       <div className={styles.wrapper}>
         {loadingGrid && <span className={styles.loading}>Doing quick math...</span>}
         <div className={styles.buttons}>
@@ -148,6 +137,8 @@ const GridComponent = () => {
           >
             This is <b>Conway&apos;s Game of Life</b>
           </button>
+          {/* if you see this, it is for SEO */}
+          <a className={styles.hidden} href="https://matthewtrent.me">Matthew Trent</a>
           <button
             className={styles.button}
             onClick={() =>

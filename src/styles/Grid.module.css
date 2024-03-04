@@ -1,18 +1,11 @@
-/* Grid.module.css */
-
-/* Grid.module.css */
 .wrapper {
   flex-direction: column;
-  justify-content: center; /* Center vertically */
-  align-items: center; /* Center horizontally */
+  justify-content: center; 
+  align-items: center; 
   padding: 20px;
-  /* child is centered vertically and horizontally */
   display: flex;
-  /* 100% width */
   width: 100%;
-  /* 100% height */
   height: 100vh;
-  /* border inside */
   box-sizing: border-box;
 }
 
@@ -20,7 +13,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, 25px);
   justify-content: center;
-  /* Removed the transform and height to allow flexbox centering */
 }
 
 .gridContainer:hover {
@@ -33,23 +25,19 @@
 
 .gridCell {
   height: 25px;
-  /* suppppper light border */
   border: 1px solid #333333;
-  /* borderbox include the border */
   box-sizing: border-box;
-  /* Add your alive/dead styling here */
 }
 
 .alive {
-  background-color: #dddddd; /* Example alive cell color */
+  background-color: #dddddd; 
 }
 
 .dead {
-  background-color: #212121; /* Example dead cell color */
+  background-color: #212121;
 }
 
 .buttons {
-  /* absoulte position top center */
   position: absolute;
   top: 0;
   left: 0;
@@ -58,24 +46,17 @@
   text-align: center;
   z-index: 2;
   padding: 15px;
-  /* a row of children, all centered */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* space between each item */
   gap: 10px;
-  /* center horizontally when smaller than screen size */
   margin: 0 auto;
-  /* all buttons in row same height */
   align-items: center;
-  /* make it wrap if too small */
   flex-wrap: wrap;
-  /* make this transparent hit target  so hits go right through it*/
   pointer-events: none;
 }
 
 .buttonsDown {
-  /* absoulte position top center */
   position: absolute;
   bottom: 0;
   left: 0;
@@ -84,31 +65,22 @@
   text-align: center;
   z-index: 2;
   padding: 15px;
-  /* a row of children, all centered */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* space between each item */
   gap: 10px;
-  /* center horizontally when smaller than screen size */
-  /* all buttons in row same height */
   align-items: center;
-  /* make it wrap if too small */
   flex-wrap: wrap;
-  /* make this transparent hit target  so hits go right through it*/
   pointer-events: none;
 }
 
 .button {
-  /* shadow */
   box-shadow: 0 0 20px 0 #1f1f1f;
   pointer-events: auto;
-  /* make text not highlightable */
   user-select: none;
 }
 
 .loading {
-  /* center child */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -129,4 +101,8 @@
 
 .stop:hover {
   color: #ff3737;
+}
+
+.hidden {
+  display: none;
 }
